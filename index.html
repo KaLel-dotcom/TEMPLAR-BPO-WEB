@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Templar BPO Catalog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    Styles for the BPO catalog. Since external CDNs are not
+    accessible in some environments, we provide our own lightweight
+    CSS instead of relying on Tailwind. See styles.css for details.
+  -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Templar BPO Catalog</h1>
+    <!-- Wrapper for sidebar and main content -->
+    <div class="flex flex-col md:flex-row gap-4">
+      <!-- Sidebar: search, missing toggle, categories -->
+      <aside class="md:w-1/4">
+        <input id="searchInput" type="text" placeholder="Search by name or ID..." class="w-full p-2 border rounded mb-4" oninput="renderBPOList()">
+        <label class="inline-flex items-center mb-4 cursor-pointer select-none">
+          <input type="checkbox" id="showMissing" onchange="renderBPOList()" class="mr-2">
+          <span>Show only missing</span>
+        </label>
+        <h2 class="text-lg font-semibold mt-2">Categories</h2>
+        <ul id="categoryList" class="mt-2 space-y-1 text-sm">
+          <!-- categories are rendered here -->
+        </ul>
+      </aside>
+      <!-- Main content: table of BPOs -->
+      <main class="md:w-3/4 overflow-auto max-h-[70vh]">
+        <table class="min-w-full bg-white shadow-md rounded">
+          <thead class="bg-blue-500 text-white sticky top-0">
+            <tr>
+              <th class="p-2 text-left">Owned</th>
+              <th class="p-2 text-left">Type ID</th>
+              <th class="p-2 text-left">Blueprint Name</th>
+              <th class="p-2 text-left">Category</th>
+              <th class="p-2 text-left">Group</th>
+            </tr>
+          </thead>
+          <tbody id="bpoList">
+            <!-- BPO rows are rendered here -->
+          </tbody>
+        </table>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script>
+  <!-- Load the owned list before rendering the catalog so that pre‑owned
+       blueprints are automatically checked. This script sets
+       localStorage entries based on a predefined list of TypeIDs. -->
+  <script src="owned.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
